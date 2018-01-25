@@ -1,36 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int dp[100005][5];
-
-int main(){
+int main() {
     ios::sync_with_stdio(false);
-    
     int n; cin >> n;
     vector<int> v;
-    
     for(int i = 0; i < n; i++){
         int x; cin >> x;
         v.push_back(x);
-        dp[i][0] = dp[i][1] = 1;
     }
-    
-    int res = 1;
-    
-    for(int i = 1; i < n; i++){
-        if(v[i] == v[i-1]){
-            dp[i][0] += dp[i-1][0];
-            dp[i][1] += dp[i-1][1];
-        }
-        else if(v[i] < v[i-1]){
-            dp[i][1] += dp[i-1][0];
-        }
-        else{
-            dp[i][0] += dp[i-1][1];
-        }
-        res = max(res, dp[i][0]);
-        res = max(res, dp[i][1]);
+    int esq=0,dir=0,res=0;
+    multiset<int> ms;
+    while(dir < n){
+        ms.insert(v[dir++]);
+        while(*ms.rbegin()-*ms.begin() > 1) ms.erase(ms.find(v[esq++]));
+        res = max(res, (int)ms.size());
     }
     cout << res << endl;
-    return 0;
 }
