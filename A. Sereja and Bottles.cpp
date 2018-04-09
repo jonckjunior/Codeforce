@@ -17,7 +17,7 @@ int main(){
     for(int i = 0; i < n; i++)
         for(int j = 0; j < n; j++)
             if(i != j && A[i] == B[j])
-                res--;
+                res--, A[i] = -1;
     cout << res << endl;
     return 0;
 }
